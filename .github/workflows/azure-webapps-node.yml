@@ -1,0 +1,101 @@
+
+➜ WRANGLER_LOG=debug wrangler dev   
+
+
+WRANGLER_LOG=debug นักเลง dev   
+
+ภาษาถิ่นไทยมะลิสุรินทร์.env ".env": เข้ากําพุดพุด: จามาลพิทท่าเรือไทยคามพิทยาฟสุรินทร์ ⁇ กทพ '.env'
+    at Object.openSync (node:fs:584:3)
+    at Object.readFileSync (node:fs:452:35)
+    at tryLoadDotEnv (/Users/birvine-broque/src/project/node_modules/wrangler/wrangler-dist/cli.js:140305:72)
+    at loadDotEnv (/Users/birvine-broque/src/project/node_modules/wrangler/wrangler-dist/cli.js:140313:12)
+    at /Users/birvine-broque/src/project/node_modules/wrangler/wrangler-dist/cli.js:164454:20
+    at /Users/birvine-broque/src/project/node_modules/wrangler/wrangler-dist/cli.js:151146:16
+    at maybeAsyncResult (/Users/birvine-broque/src/project/node_modules/wrangler/wrangler-dist/cli.js:149426:44)
+    at /Users/birvine-broque/src/project/node_modules/wrangler/wrangler-dist/cli.js:151145:14
+    at /Users/birvine-broque/src/project/node_modules/wrangler/wrangler-dist/cli.js:149414:22
+    at Array.reduce (<anonymous>) {
+  errno: -2,
+  syscall: 'open',
+  code: 'ENOENT',
+  เส้นทาง: '.env'
+
+}
+ ⛅️ wrangler 2.6.2 
+-------------------
+=======
+
+
+
+
+สิ่งแวดล้อ
+-7
+  AZURE_WEBAPP_NAME: https://github.com/Weera1234/DNS-AGN/edit/main/.github/workflows/azure-webapps-node.yml    # set this to your application's name
+=======
+  AZURE_WEBAPP_NAME: https://github.com/khaledagn/DNS-AGN.git   # set this to your application's name
+
+  AZURE_WEBAPP_PACKAGE_PATH https : //kyc-theresawchavez789.us.kg          # จัดเตรียมเส้นทางนี้ไปยังโปรเจ็กต์แอปเว็บของคุณโดยกักขังคือรูทของความยุติธรรม# 
+  NODE_VERSION: '20.x'                # set this to the node version to use
+บน:
+  ดัน :
+    สาขา : [ "หลัก" ]
+  ในตอนแรกโฟลว์_การจัดส่ง: 
+
+สิ่งแวดล้อม:
+  AZURE_WEBAPP_NAME : kyc-theresawchavez789.us.kg     #ตั้งค่านี้เป็นชื่อแอปพลิเคชันของคุณ
+  AZURE_WEBAPP_PACKAGE_PATH : ' . '       #ตั้งค่านี้เป็นเส้นทางไปยังโปรเจ็กต์แอปเว็บของคุณ โดยค่าเริ่มต้นคือรูทของที่เก็บข้อมูล
+  NODE_VERSION : ' 20.x '                 #ตั้งค่านี้เป็นเวอร์ชันโหนดที่จะใช้
+
+การอนุญาต:
+  เนื้อหา : อ่าน
+
+งาน:
+  สร้าง :
+    รันบน : ubuntu-ล่าสุด
+    ขั้นตอน :
+    - การใช้งาน: actionsheckout@v4
+
+    - ชื่อ: ตั้งค่า Node.js
+      การใช้งาน : actions/setup-node@v4
+      กับ :
+        เวอร์ชันโหนด : ${{ env.NODE_VERSION }}
+        แคช : ' npm '
+
+
+
+    - ชื่อ: npm ติดตั้ง สร้าง และทดสอบ
+      วิ่ง : |
+        การติดตั้ง npm
+        npm รัน build --if-present
+        npm รันทดสอบ --if-present
+
+
+    - ชื่อ: อัปโหลดสิ่งประดิษฐ์สำหรับงานการปรับใช้
+      การใช้งาน : actions/upload-artifact@v4
+      กับ :
+        ชื่อ : node-app
+        เส้นทาง : kyc-theresawchavez789.us.kg
+
+  ปรับใช้ :
+    การอนุญาต:
+      เนื้อหา : ไม่มี
+    รันบน : ubuntu-ล่าสุด
+    ความต้องการ : สร้าง
+    สิ่งแวดล้อม :
+      ชื่อ : 'พัฒนาการ'
+      URL : ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    ขั้นตอน :
+    - ชื่อ: ดาวน์โหลดสิ่งประดิษฐ์จากงานสร้าง
+      การใช้งาน : actions/download-artifact@v4
+      กับ :
+        ชื่อ : node-app
+
+    - ชื่อ : 'ปรับใช้กับ Azure WebApp '
+      id : ปรับใช้กับเว็บแอป
+      การใช้งาน : azure/webapps-deploy@v2
+      กับ :
+        ชื่อแอป : ${{ env.AZURE_WEBAPP_NAME }}
+        เผยแพร่โปรไฟล์ : ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        พพ ⁇ กจ : ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+

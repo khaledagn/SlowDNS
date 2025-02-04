@@ -1,4 +1,4 @@
-#!/bin/bash
+no#!/bin/bash
 clear
 fun_bar () {
 comando[0]="$1"
